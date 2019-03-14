@@ -1,11 +1,14 @@
 let express = require('express'); //Referenciar Express
-let homeRoute = require('./routes/home'); //Referenciar la ruta de home
+let routes = require('./routes/routes'); //Referenciar las rutas
 let db = require("./config/db"); //Referenciamos el archivo de conexión con MongoDB
+let bodyParser = require('body-parser'); //Referenciamos el middleware para manejar el body en POST requests
 
 let app = express(); //Crear la aplicación
 let PORT = process.env.PORT || 3000; //El puerto donde se ejecuta la aplicación
 
-app.use(homeRoute);
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json()); 
+app.use(routes);
 
 db.connection.once('error', (err) => {
     console.log(`Ha ocurrido un error durante la conexión con la base de datos: ${err}`);
