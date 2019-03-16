@@ -8,8 +8,10 @@ router.get('/', homeController.index);
 //#endregion
 
 //#region Rutas para la administración de concesionarios
-router.get('/concesionarios', concesionarioController.getConcesionarios);
-router.post('/addConcesionario', concesionarioController.createConcesionario);
+router.get('/concesionarios', concesionarioController.getConcesionarios); //Obtener todos los concesionarios
+router.get('/concesionarios/search', concesionarioController.searchConcesionarioPorNombre);
+router.put('/updateConcesionarios/:id', concesionarioController.updateConcesionario); //Modificar un concesionario
+router.post('/concesionarios', concesionarioController.createConcesionario); //Registrar un concesionario
 //#endregion
 
 module.exports = router;

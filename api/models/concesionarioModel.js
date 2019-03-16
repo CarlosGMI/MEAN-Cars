@@ -7,7 +7,10 @@ let concesionarioSchema = new mongoose.Schema({
         required: [true, 'El campo de RIF es requerido'],
         unique: true
     },
-    Regiones: [String], //Las regiones deberían ser más escalables en grandes sistemas.
+    Region: { //Las regiones deberían ser más escalables en grandes sistemas.
+        type: String,
+        required: [true, 'El campo de Región es requerido']
+    },
     CreatedOn: {
         type: Date,
         default: Date.now
