@@ -89,3 +89,19 @@ exports.searchConcesionarioPorNombre = function(req, res){
         return res.status(505).json({success: false, message: err.message, model: null});
     });
 };
+
+//======================Eliminar un concesionario determinado======================
+exports.deleteConcesionario = function(req, res){
+    if(!req.params.id)
+        return res.json({success: false, message: "Por favor, selecciona un concesionario a eliminar"});
+    //Transformamos a ObjectID el parámetro del URL 
+    let id = new ObjectId(req.params.id);
+    concesionarioModel.findOneAndDelete({_id: id}).then(doc => {
+        //Si la búsqueda no retorna nada es porque no existe el concesionario con el ObjectId especificado (solo para aquellos vivos que ingresen cualquier param en el URL)
+        if (!doc || doc.length === 0)
+            return res.json({ success: true, message: "No existe el concesionario a modificar" });
+        return res.json({ success: true, message: "El concesionario se ha eliminado exitosamente" });
+    }).catch(err => {
+        return res.status(505).json({success: false, message: err.message, model: null});
+    });
+};
