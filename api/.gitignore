@@ -1,2 +1,2 @@
 node_modules
-./config/jwtConfig.js
+api/config/jwtConfig.js
