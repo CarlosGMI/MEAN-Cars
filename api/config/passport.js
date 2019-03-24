@@ -43,3 +43,5 @@ passport.use('admin', new jwtStrategy({
         done(null, jwtPayload);
     }
 ));
+
+//Configurar la estrategia mediante el 
