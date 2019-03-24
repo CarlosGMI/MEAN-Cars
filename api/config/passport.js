@@ -44,4 +44,4 @@ passport.use('admin', new jwtStrategy({
     }
 ));
 
-//Configurar la estrategia mediante el 
+//Configurar la estrategia mediante el aa
