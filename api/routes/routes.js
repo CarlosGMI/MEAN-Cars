@@ -15,4 +15,8 @@ router.put('/updateConcesionarios/:id', concesionarioController.updateConcesiona
 router.post('/concesionarios', concesionarioController.createConcesionario); //Registrar un concesionario
 //#endregion
 
+//#region Rutas para la autenticación de los usuarios
+
+//#endregion
+
 module.exports = router;
