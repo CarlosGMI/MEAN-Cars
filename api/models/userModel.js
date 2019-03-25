@@ -24,7 +24,7 @@ let userSchema = new mongoose.Schema({
     FechaNacimiento: Date,
     Roles: {
         type: [String],
-        default: ['Usuario']
+        default: ['Cliente']
     },
     CreatedOn: {
         type: Date,
@@ -34,7 +34,7 @@ let userSchema = new mongoose.Schema({
 });
 
 //Middleware para que al registrar un usuario, su contraseña siempre sea encriptada
-userSchema.pre('save', next => {
+userSchema.pre('save', function(next) {
     if(this.isModified('Contrasena') || this.isNew){
         bcrypt.genSalt(10, (err, salt) => {
             if(err)
@@ -52,7 +52,7 @@ userSchema.pre('save', next => {
 });
 
 //Método para comparar que el usuario posea la contraseña correcta
-userSchema.methods.comparePassword = async (password) => {
+userSchema.methods.comparePassword = async function(password) {
     let result = await bcrypt.compare(password, this.Contrasena);
     return result;
 };

@@ -1,14 +1,14 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const jwtStrategy = require('passport-jwt').Strategy;
-const secret = require('./jwtConfig');
+const {secret} = require('./jwtConfig');
 const userModel = require('../models/userModel');
 
 //Configurar la estrategia local para la autenticación del usuario
 passport.use(new localStrategy({
     //Obtenemos los campos del req.body (en este caso el email y la contraseña)
-    emailField: Email,
-    passwordField: Contrasena,
+    usernameField: 'Email',
+    passwordField: 'Contrasena',
 }, async (email, contrasena, done) => {
     try{
         //Buscamos al usuario en la base de datos de acuerdo a su email
@@ -20,7 +20,7 @@ passport.use(new localStrategy({
         if(!user.comparePassword(contrasena))
             return done('Contraseña incorrecta');
         //Todo correcto, usuario encontrado en base de datos y su contraseña coincide con el hash almacenado
-        return done(null, user);
+        done(null, user);
     //Capturamos cualquier error que suceda durante la búsqueda del usuario y en la comparación de contraseñas
     } catch(error){ //Puede ser que haya que manejar las excepciones de usuario no encontrado acá en el catch
         return done(error, "Ha ocurrido un error durante la autenticación");
@@ -44,4 +44,16 @@ passport.use('admin', new jwtStrategy({
     }
 ));
 
-//Configurar la estrategia mediante el aa
+//Configurar la estrategia mediante el JWT token para verificar las permisologías de usuarios comunes (rol "Usuario")
+passport.use('user', new jwtStrategy({
+    //Obtenemos el token de la cookie que está en el header del request y la validamos con el secret
+    jwtFromRequest: req => req.cookies.jwt,
+    secretOrKey: secret,
+}, (jwtPayload, done) => {
+        //Si el token contiene una fecha de expiración inferior a la actual ya se venció. El usuario debe autenticarse nuevamente
+        if(Date.now() > jwtPayload.expires)
+            done('El JWT token ha expirado');
+        //Todo correcto, usuario con permisología adecuada y token en regla
+        done(null, jwtPayload);
+    }
+));
