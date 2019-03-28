@@ -1,5 +1,6 @@
 let express = require('express'); //Referenciar Express
 let passport = require('passport');
+let cookieParser = require('cookie-parser'); //Referenciamos el middleware para manejar las cookies
 let routes = require('./routes/routes'); //Referenciar las rutas
 let db = require("./config/db"); //Referenciamos el archivo de conexión con MongoDB
 let bodyParser = require('body-parser'); //Referenciamos el middleware para manejar el body en POST requests
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 //app.use(passport.initialize());
 //app.use(passport.session());
 //require('./config/passport');
+app.use(cookieParser());
 app.use(routes);
 
 db.connection.once('error', (err) => {

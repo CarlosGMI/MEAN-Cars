@@ -5,7 +5,7 @@ let app = express();
 let {secret} = require('../../config/jwtConfig');
 let userModel = require('../../models/userModel');
 
-//Registrar un usuario
+//======================Registrar un usuario======================
 exports.register = function(req, res){
     //Si el body del POST request viene vacío responde con error
     if(req.body.constructor === Object && Object.keys(req.body).length === 0)
@@ -32,7 +32,7 @@ exports.register = function(req, res){
     });
 };
 
-//Inicio de sesión de un usuario
+//======================Inicio de sesión de un usuario======================
 exports.login = app.use(function(req, res, next){
     //Nos autenticamos usando la estrategia local de Passport
     passport.authenticate('local', {session: false}, (error, user) => {
@@ -43,7 +43,7 @@ exports.login = app.use(function(req, res, next){
         let payload = {
             email: user.Email,
             roles: user.Roles,
-            expires: 900000,
+            expires: new Date(Date.now() + 900000),
         };
         //Asignamos ese payload o contenido al request
         req.login(payload, {session: false}, (error) => {
@@ -52,9 +52,8 @@ exports.login = app.use(function(req, res, next){
                 return res.json({success: false, message: "Ha ocurrido un error durante el inicio de sesión", model: user});
             //Creamos el JWT colocando como contenido el payload y firmándolo con nuestro secreto
             let token = jwt.sign(JSON.stringify(payload), secret);
-            console.log(JSON.stringify(payload)+':'+secret);
             //Guardamos el JWT token en una cookie y el inicio de sesión ha sido exitoso
-            res.cookie('jwt', token, { httpOnly: true, secure: true });
+            res.cookie('jwt', token, { httpOnly: true, secure: false, maxAge: 900000 });
             return res.json({success: true, message: "Inicio de sesión exitoso", model: null});
         });
     })(req, res, next);
@@ -68,23 +67,10 @@ exports.pruebaAdmin = function(req, res){
     return res.json({message: "Hola, tengo permisos para entrar como Administrador"});
 };
 
-exports.autenticado = function(req, res){
-    return res.json({message: "Autenticado!"});
+exports.requireAuth = function(req, res){
+    return res.json({message: "Necesitas iniciar sesión para acceder a este sitio"});
 };
 
-exports.noAutenticado = function(req, res){
-    return res.json({message: "No autenticado :("});
+exports.unauthorized = function(req, res){
+    return res.json({message: "No posees la permisología adecuada para acceder a este sitio"});
 };
-
-app.post('/login', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-      if (err) { return next(err); }
-      // Redirect if it fails
-      if (!user) { return res.redirect('/login'); }
-      req.logIn(user, function(err) {
-        if (err) { return next(err); }
-        // Redirect if it succeeds
-        return res.redirect('/users/' + user.username);
-      });
-    })(req, res, next);
-  });
