@@ -102,6 +102,6 @@ exports.deleteConcesionario = function(req, res){
         return res.json({ success: true, message: "El concesionario se ha eliminado exitosamente" });
     //Capturamos cualquier error durante la búsqueda y eliminación del concesionario
     }).catch(err => {
-        return res.status(505).json({success: false, message: err.message, model: null});
+        return res.status(505).json({success: false, message: err.message});
     });
 };

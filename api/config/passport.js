@@ -28,15 +28,6 @@ passport.use(new localStrategy({
     }
 }));
 
-let jwtInCookie = function extractCookie(req){
-    let token = null;
-    console.dir(req.cookies);
-    if(req && req.cookies){
-        token = req.cookies['jwt'];
-    }
-    return token;
-};
-
 //Configurar la estrategia mediante el JWT token para verificar la permisología del rol "Administrador"
 passport.use('admin', new jwtStrategy({
     //Obtenemos el token de la cookie que está en el header del request y la validamos con el secret
@@ -63,11 +54,7 @@ passport.use('user', new jwtStrategy({
         //Si el token contiene una fecha de expiración inferior a la actual ya se venció. El usuario debe autenticarse nuevamente
         if(Date.now() > jwtPayload.expires)
             return done(null, false, {message: "El JWT token ha expirado"});
-        //Si el token no contiene el rol de administrador entonces al usuario se le niega permisologías
-        if(!jwtPayload.roles.includes("Cliente"))
-            return done(null, false, {message: 'No posees permisologías adecuadas para acceder a esta página'});
         //Todo correcto, usuario con permisología adecuada y token en regla
-        console.log("result: "+jwtPayload.roles.includes("Cliente"));
         return done(null, jwtPayload);
     }
 ));

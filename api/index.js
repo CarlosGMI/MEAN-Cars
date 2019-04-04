@@ -10,9 +10,6 @@ let PORT = process.env.PORT || 3000; //El puerto donde se ejecuta la aplicación
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-//app.use(passport.initialize());
-//app.use(passport.session());
-//require('./config/passport');
 app.use(cookieParser());
 app.use(routes);
 
