@@ -30,7 +30,11 @@ let userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    Concesionarios: [{type: Schema.Types.ObjectId, ref: 'Concesionario'}]
+    Concesionarios: [{type: Schema.Types.ObjectId, ref: 'Concesionario', unique: true}],
+    Estatus: {
+        type: Boolean,
+        default: true
+    }
 });
 
 //Middleware para que al registrar un usuario, su contraseña siempre sea encriptada

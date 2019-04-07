@@ -38,7 +38,7 @@ exports.login = app.use(function(req, res, next){
     passport.authenticate('local', {session: false}, (error, user) => {
         //Si hay un error en el inicio de sesión es porque el usuario no existe o por algún otro error
         if(error || !user)
-            return res.json({success: false, message: error, model: req.body});
+            return res.json({success: false, message: error, model: req.body.Email});
         //Inicio de sesión correcto, creamos el contenido que tendrá el JWT token: el email, los roles y la fecha de expiración
         let payload = {
             email: user.Email,

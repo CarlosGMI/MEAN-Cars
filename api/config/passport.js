@@ -17,6 +17,9 @@ passport.use(new localStrategy({
         //Si el usuario no existe es porque el email no se encuentra registrado en la base de datos
         if(!user)
             return done('El email no se encuentra registrado en el sistema');
+        //Si el usuario se encuentra desactivado responder con error
+        if(!user.Estatus)
+            return done('Su usuario ha sido desactivado por los administradores del sistema');
         //Si la contraseña no coincide con el hash almacenado en base de datos es porque la contraseña es incorrecta
         if(!await user.comparePassword(contrasena))
             return done('Contraseña incorrecta');
