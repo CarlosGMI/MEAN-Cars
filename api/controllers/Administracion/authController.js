@@ -41,6 +41,7 @@ exports.login = app.use(function(req, res, next){
             return res.json({success: false, message: error, model: req.body.Email});
         //Inicio de sesión correcto, creamos el contenido que tendrá el JWT token: el email, los roles y la fecha de expiración
         let payload = {
+            id: user._id,
             email: user.Email,
             roles: user.Roles,
             expires: new Date(Date.now() + 900000),
@@ -59,18 +60,18 @@ exports.login = app.use(function(req, res, next){
     })(req, res, next);
 });
 
-exports.pruebaUser = function(req, res){
-    return res.json({message: "Hola, tengo permisos para entrar como Usuario"});
-};
-
-exports.pruebaAdmin = function(req, res){
-    return res.json({message: "Hola, tengo permisos para entrar como Administrador"});
-};
-
 exports.requireAuth = function(req, res){
     return res.json({message: "Necesitas iniciar sesión para acceder a este sitio"});
 };
 
 exports.unauthorized = function(req, res){
     return res.json({message: "No posees la permisología adecuada para acceder a este sitio"});
+};
+
+exports.checkUser = function(req, res, next){
+    if(req.user.id === req.params.id)
+        console.log("AUTHORIZED");
+    else
+        return res.json({message: "UNAUTHORIZED"});
+    return next();
 };
