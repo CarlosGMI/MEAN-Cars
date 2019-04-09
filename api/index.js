@@ -6,7 +6,7 @@ let db = require("./config/db"); //Referenciamos el archivo de conexión con Mon
 let bodyParser = require('body-parser'); //Referenciamos el middleware para manejar el body en POST requests
 
 let app = express(); //Crear la aplicación
-let PORT = process.env.PORT || 3000; //El puerto donde se ejecuta la aplicación
+let PORT = process.env.PORT || 8000; //El puerto donde se ejecuta la aplicación
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
