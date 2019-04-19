@@ -4,13 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "run-p install:api install:web",
+    "install:api": "cd api && npm install",
+    "install:web": "cd web && npm install",
+    "start": "run-p start:api start:web",
     "start:api": "npm run start --prefix api",
     "start:web": "npm run start --prefix web",
+    "build": "run-p build:api build:web",
+    "build:api": "cd api && npm run build && cd ..",
+    "build:web": "cd web && npm run build && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Carlos Maldonado",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  },
   "devDependencies": {
     "nodemon": "^1.18.10"
   }
