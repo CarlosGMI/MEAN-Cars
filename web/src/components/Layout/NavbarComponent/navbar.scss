@@ -1,0 +1,37 @@
+@import '../../../variables.scss';
+
+.navbar-expand-lg{
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+#navMERN{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    transition: padding-top .3s, padding-bottom .3s;
+    border: none;
+    background-color: transparent;
+
+    .navbar-brand{
+        img{
+            max-height: 40px;
+        }
+    }
+
+    .navbar-nav{
+        .nav-item{
+            .nav-link{
+                color: $light-grey1;
+                padding: 1.1em 1em;
+                font-weight: 400;
+                letter-spacing: 1px;
+            }
+        }
+    }
+}
+
+.navbar-shrink{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    background-color: $black1 !important;
+}

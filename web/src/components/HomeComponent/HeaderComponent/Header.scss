@@ -1,0 +1,31 @@
+@import '../../../variables.scss';
+
+.main-header-content{
+    text-align: center;
+    background-image: url("./img/CarsHeader.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+    background-size: cover;
+    min-height: 100vh;
+
+    .header-text{
+        padding-top: 160px;
+
+        .first-header-text{
+            color: #fff;
+            font-size: 50px;
+            font-weight: 700;
+            line-height: 60px;
+            margin-bottom: 25px;
+        }
+
+        .second-header-text{
+            color: $light-grey1;
+            font-size: 30px;
+            font-style: italic;
+            line-height: 10px;
+            margin-bottom: 50px;
+        }
+    }
+}
