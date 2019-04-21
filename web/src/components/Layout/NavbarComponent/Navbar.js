@@ -17,7 +17,7 @@ class Navbar extends Component {
         //Constante que nos permite saber a qué distancia (en píxeles) de haber scrolleado hacia abajo cambiaremos el navbar
         shrinkOn = 50,
         //Constante que representa el navbar que modificaremos
-        navbar = document.getElementById("navMERN");
+        navbar = document.getElementById("main-nav");
         //Si lo que hemos scrolleado hacia abajo es mayor o igual que la distancia que tenemos fijada añadimos una clase que modifica el navbar
         if(distanceY >= shrinkOn)
             navbar.classList.add("navbar-shrink");
@@ -28,28 +28,25 @@ class Navbar extends Component {
 
     render(){
         return (
-            <nav className="navbar navbar-expand-lg fixed-top" id="navMERN">
-                <div className="container">
+            <nav className="fixed-top" id="main-nav">
+                <div className="container d-flex align-items-center">
                     <a className="navbar-brand"><img src={logo}></img></a>
-                    <div className="navbar-collapse collapse" id="navResponsive">
-                        <ul className="navbar-nav text-uppercase ml-auto">
-                            <li className="nav-item">
-                                <a className="nav-link">Inicio</a>
+                    <div id="nav-responsive">
+                        <ul className="text-uppercase nav-group-item m-0 align-items-center">
+                            <li className="item-nav">
+                                <a>Inicio</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link">Quiénes somos</a>
+                            <li className="item-nav">
+                                <a>Servicios</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link">Servicios</a>
+                            <li className="item-nav">
+                                <a>Quiénes somos</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link">Contacto</a>
+                            <li className="item-nav">
+                                <a>Contacto</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link">Administración</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link">Inicio de sesión</a>
+                            <li className="item-nav">
+                                <a>Sesión</a>
                             </li>
                         </ul>
                     </div>

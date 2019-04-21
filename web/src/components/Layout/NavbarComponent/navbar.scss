@@ -1,13 +1,8 @@
 @import '../../../variables.scss';
 
-.navbar-expand-lg{
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-}
-
-#navMERN{
-    padding-top: 25px;
-    padding-bottom: 25px;
+#main-nav{
+    padding-top: 5px;
+    padding-bottom: 5px;
     transition: padding-top .3s, padding-bottom .3s;
     border: none;
     background-color: transparent;
@@ -18,9 +13,14 @@
         }
     }
 
-    .navbar-nav{
-        .nav-item{
-            .nav-link{
+    #nav-responsive{
+        margin-left: auto !important;
+
+        .nav-group-item{
+            display: flex;
+            list-style: none;
+
+            .item-nav{
                 color: $light-grey1;
                 padding: 1.1em 1em;
                 font-weight: 400;
@@ -32,6 +32,6 @@
 
 .navbar-shrink{
     padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 5px !important;
     background-color: $black1 !important;
 }
